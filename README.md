@@ -12,7 +12,12 @@ Auto Claim for XKucoin Telegram Bot
 
 # Register
 
-Click the following url to register : [XKucoin Bot](https://t.me/xkucoinbot/kucoinminiapp?startapp=cm91dGU9JTJGdGFwLWdhbWUlM0ZpbnZpdGVyVXNlcklkJTNENTQ5NjI3NDAzMSUyNnJjb2RlJTNEUUJTVEFQTjM=)
+Click the following url to register : [XKucoin Bot](https://t.me/xkucoinbot/kucoinminiapp?startapp=cm91dGU9JTJGdGFwLWdhbWUlM0ZpbnZpdGVyVXNlcklkJTNEMTEzNzczNDA5NiUyNnJjb2RlJTNE
+💥World Premiere💥
+
+📢 New Listing
+
+@CatizenAI's $CATI is all set to launch! To celebrate, KuCoin’s Frog Trader minigame has released an exclusive Catizen skin for a limited time. Invite your friends to unlock it—come help me out!)
 
 # How to Use
 - [Windows](#windows)
@@ -29,7 +34,7 @@ Click the following url to register : [XKucoin Bot](https://t.me/xkucoinbot/kuco
 
 2. Clone this repository
    ```shell
-   git clone https://github.com/BlackDragonHacker/XKucoin.git
+   git clone https://github.com/smartoolhanif/XKucoin-Bot.git
    ```
 
 3. goto XKucoin directory
@@ -64,7 +69,7 @@ Click the following url to register : [XKucoin Bot](https://t.me/xkucoinbot/kuco
 
 3. **Clone the repository**:
    ```shell
-   git clone https://github.com/BlackDragonHacker/XKucoin.git
+   git clone https://github.com/smartoolhanif/XKucoin-Bot.git
    ```
 
 4. **Navigate to the XKucoin directory**:
@@ -101,7 +106,7 @@ Click the following url to register : [XKucoin Bot](https://t.me/xkucoinbot/kuco
 2. Clone this repository
    
    ```shell
-   git clone https://github.com/BlackDragonHacker/XKucoin.git
+   git clone https://github.com/smartoolhanif/XKucoin-Bot.git
    ```
 
 3. goto XKucoin directory
@@ -139,7 +144,7 @@ Click the following url to register : [XKucoin Bot](https://t.me/xkucoinbot/kuco
 
 2. Clone this repository
    ```shell
-   git clone https://github.com/BlackDragonHacker/XKucoin.git
+   git clone https://github.com/smartoolhanif/XKucoin-Bot.git
    ```
 
 3. goto XKucoin directory
@@ -161,6 +166,6 @@ Click the following url to register : [XKucoin Bot](https://t.me/xkucoinbot/kuco
 
 # How to get auth token
 
-1. [Watch Video](https://youtu.be/JY0ER5FqHEc)
+1. [Watch Video](https://youtu.be/)
 
 # Thank you
