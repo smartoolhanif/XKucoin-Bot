@@ -30,7 +30,7 @@ def art():
     |_|\___/ \___/|_|
                      
                      
-                     """ + "\033[0m\n\033[1;96m---------------------------------------\033[0m\n\033[1;93mScript created by: SmaRt Tool HaNiF\033[0m\n\033[1;92mJoin Telegram: \https://t.me/smartoolhanif\033[0m\n\033[1;91mVisit my GitHub: \nhttps://t.me/smartoolhanif\033[0m\n\033[1;96m---------------------------------------\033[0m\n\033[1;38;2;139;69;19;48;2;173;216;230m-------------[XKucoin Bot]-------------\033[0m\n\033[1;96m---------------------------------------\033[0m")
+                     """ + "\033[0m\n\033[1;96m---------------------------------------\033[0m\n\033[1;93mScript created by: SmaRt Tool HaNiF\033[0m\n\033[1;92mJoin Telegram: \https://t.me/smartoolhanif\033[0m\n\033[1;91mVisit my GitHub: \nhttps://github.com/smartoolhanif/\033[0m\n\033[1;96m---------------------------------------\033[0m\n\033[1;38;2;139;69;19;48;2;173;216;230m-------------[XKucoin Bot]-------------\033[0m\n\033[1;96m---------------------------------------\033[0m")
 
 def countdown_timer(seconds):
     while seconds > 0:
