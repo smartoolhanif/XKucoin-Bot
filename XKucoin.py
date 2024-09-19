@@ -4,7 +4,21 @@ import random
 import urllib.parse
 import os
 from colorama import Fore, Style, init
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
+import logging
 
+# Enable logging
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
+)
+
+logger = logging.getLogger(__name__)
+
+# Set bot token
+TOKEN = os.getenv("BOT_TOKEN")
+
+# Initialize colorama
 init(autoreset=True)
 
 def clear_terminal():
@@ -181,14 +195,23 @@ def new_balance(cookie):
     balance = data.get("data").get("availableAmount")
     print(f"{Fore.MAGENTA + Style.BRIGHT}New Balance: {balance}")
 
-def main():
-    file_path = "data.txt"
-    encoded_data_list = read_data_file(file_path)
-    
-    while True:
-        clear_terminal()
-        art()
-    
+def start(update: Update, context: CallbackContext) -> None:
+    """Sends a message with three inline buttons attached."""
+    user = update.effective_user
+    update.message.reply_text(f"Hi {user.first_name}, I'm XKucoin Bot. Choose an action:",
+                              reply_markup=get_keyboard())
+
+def button(update: Update, context: CallbackContext) -> None:
+    """Parses the CallbackQuery and updates the message text."""
+    query = update.callback_query
+
+    # Callback data
+    data = query.data
+
+    if data == 'start_auto_tap':
+        file_path = "data.txt"
+        encoded_data_list = read_data_file(file_path)
+
         for index, encoded_data in enumerate(encoded_data_list, start=1):
             print(f"{Fore.CYAN + Style.BRIGHT}------Account No.{index}------")
             decoded_data = decode_data(encoded_data)
@@ -197,5 +220,90 @@ def main():
             tap(cookie, molecule)
             new_balance(cookie)
 
-if __name__ == "__main__":
+        query.answer("Auto Tap started!")
+        query.edit_message_text(text="Auto Tap started! If you want to stop, press Stop Auto Tap button")
+
+    elif data == 'stop_auto_tap':
+        query.answer("Auto Tap stopped!")
+        query.edit_message_text(text="Auto Tap stopped! If you want to start, press Start Auto Tap button")
+
+    elif data == 'get_balance':
+        file_path = "data.txt"
+        encoded_data_list = read_data_file(file_path)
+
+        for index, encoded_data in enumerate(encoded_data_list, start=1):
+            print(f"{Fore.CYAN + Style.BRIGHT}------Account No.{index}------")
+            decoded_data = decode_data(encoded_data)
+            cookie = login(decoded_data)
+            molecule = data(cookie)
+            new_balance(cookie)
+
+        query.answer("Balance updated!")
+        query.edit_message_text(text="Balance updated! If you want to start, press Start Auto Tap button")
+
+def auto_tap(update: Update, context: CallbackContext) -> None:
+    """Handles the /autotap command."""
+    file_path = "data.txt"
+    encoded_data_list = read_data_file(file_path)
+
+    for index, encoded_data in enumerate(encoded_data_list, start=1):
+        print(f"{Fore.CYAN + Style.BRIGHT}------Account No.{index}------")
+        decoded_data = decode_data(encoded_data)
+        cookie = login(decoded_data)
+        molecule = data(cookie)
+        tap(cookie, molecule)
+        new_balance(cookie)
+
+    update.message.reply_text("Auto Tap started! If you want to stop, use /stoptap command")
+
+def stop_tap(update: Update, context: CallbackContext) -> None:
+    """Handles the /stoptap command."""
+    update.message.reply_text("Auto Tap stopped! If you want to restart, use /autotap command")
+
+def get_balance(update: Update, context: CallbackContext) -> None:
+    """Handles the /balance command."""
+    file_path = "data.txt"
+    encoded_data_list = read_data_file(file_path)
+
+    for index, encoded_data in enumerate(encoded_data_list, start=1):
+        print(f"{Fore.CYAN + Style.BRIGHT}------Account No.{index}------")
+        decoded_data = decode_data(encoded_data)
+        cookie = login(decoded_data)
+        molecule = data(cookie)
+        new_balance(cookie)
+
+    update.message.reply_text("Balance updated! If you want to start auto-tap, use /autotap command.")
+
+def get_keyboard():
+    keyboard = [
+        [
+            InlineKeyboardButton("Start Auto Tap", callback_data='start_auto_tap'),
+            InlineKeyboardButton("Stop Auto Tap", callback_data='stop_auto_tap'),
+        ],
+        [InlineKeyboardButton("Get Balance", callback_data='get_balance')],
+    ]
+    return InlineKeyboardMarkup(keyboard)
+
+def main() -> None:
+    """Starts the bot."""
+    updater = Updater(TOKEN)
+
+    # Get the dispatcher to register handlers
+    dispatcher = updater.dispatcher
+
+    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(CommandHandler("autotap", auto_tap))
+    dispatcher.add_handler(CommandHandler("stoptap", stop_tap))
+    dispatcher.add_handler(CommandHandler("balance", get_balance))
+    dispatcher.add_handler(CallbackQueryHandler(button))
+
+    # Start the Bot
+    updater.start_polling()
+
+    # Run the bot until you press Ctrl-C or the process receives SIGINT,
+    # SIGTERM or SIGABRT. This should be used most of the time, since
+    # start_polling() is non-blocking and will stop the bot gracefully.
+    updater.idle()
+
+if __name__ == '__main__':
     main()
